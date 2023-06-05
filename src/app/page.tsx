@@ -9,7 +9,7 @@ import { TvShowDetails } from "../utils/tmdb-interfaces";
 export default function Home() {
   const [series, setSeries] = useState<Partial<TvShowDetails>[]>([]);
 
-  async function fetchSeries(id: string): Promise<TvShowDetails> {
+  async function fetchSeriesDetails(id: string): Promise<TvShowDetails> {
     try {
       const response = await fetch(
         ApiUtils.getSeriesDetailsUrl(id),
@@ -32,7 +32,7 @@ export default function Home() {
   const handleAddSearchResult = async (id: string) => {
     try {
       //fetch series with given id
-      const details = await fetchSeries(id);
+      const details = await fetchSeriesDetails(id);
 
       // add it to state
       setSeries((prevSeries) => [...prevSeries, details]);
@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h1>My series watchlist</h1>
+      <h1>Series tracker</h1>
       <Search handleAddSearch={handleAddSearchResult} />
       <Watchlist series={series} />
     </div>
